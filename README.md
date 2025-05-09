@@ -34,4 +34,6 @@ Projektā izmantotas vairākas lietotāja definētas datu struktūras:
 1. Pārliecinieties, ka Jums ir uzstādīts `chromedriver` un `Google Chrome`.
 2. Instalējiet nepieciešamās bibliotēkas:
    ```bash
-   pip install selenium  un beautifulsoup4
+    pip install selenium 
+    pip install beautifulsoup4
+
