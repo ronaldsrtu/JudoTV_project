@@ -18,7 +18,6 @@ Projektā tiek izmantotas šādas bibliotēkas:
 |------------------|----------------------|
 | `selenium`       | Tiek izmantots, lai automatizētu pārlūka darbības, kā lapas atvēršanu, pogu nospiešanu un datu iegūšanu no dinamiskiem elementiem, kas mainās atkarībā no lapas novietojuma.. |
 | `bs4 (BeautifulSoup)` | Tiek izmantota HTML dokumenta analizēšanai. Ļauj vienkārši iegūt visus bas. nepieciešamos elementus ar filtrēšanu, piemēŗam visas sacensī|
-
 | `csv`            | Nodrošina iespēju lasīt datus no CSV faila (`events2025.csv`), kurā glabājas informācija par visām sacensībām. |
 | `time`           | Tiek izmantota, lai nodrošinātu nelielas pauzes starp darbībām, lai lapa paspētu ielādēt datus pirms nākamāš darbīas. |
 
