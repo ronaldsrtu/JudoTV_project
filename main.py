@@ -4,67 +4,138 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
-
 from bs4 import BeautifulSoup
-from collections import defaultdict
 import csv
-
 import time
 
-# Setting up Selenium WebDriver
+# == Custom Data Structures ==
+
+class Node:
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.next = None
+
+class HashTable:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.size = 0
+        self.table = [None] * capacity
+
+    def _hash(self, key):
+        return hash(key) % self.capacity
+
+    def insert(self, key, value):
+        index = self._hash(key)
+        if self.table[index] is None:
+            self.table[index] = Node(key, value)
+            self.size += 1
+        else:
+            current = self.table[index]
+            while current:
+                if current.key == key:
+                    current.value = value
+                    return
+                current = current.next
+            new_node = Node(key, value)
+            new_node.next = self.table[index]
+            self.table[index] = new_node
+            self.size += 1
+
+    def search(self, key):
+        index = self._hash(key)
+        current = self.table[index]
+        while current:
+            if current.key == key:
+                return current.value
+            current = current.next
+        raise KeyError(key)
+
+    def remove(self, key):
+        index = self._hash(key)
+        previous = None
+        current = self.table[index]
+        while current:
+            if current.key == key:
+                if previous:
+                    previous.next = current.next
+                else:
+                    self.table[index] = current.next
+                self.size -= 1
+                return
+            previous = current
+            current = current.next
+        raise KeyError(key)
+
+    def __len__(self):
+        return self.size
+
+    def __contains__(self, key):
+        try:
+            self.search(key)
+            return True
+        except KeyError:
+            return False
+
+    def items(self):
+        for entry in self.table:
+            current = entry
+            while current:
+                yield (current.key, current.value)
+                current = current.next
+
+# == Competition Data Class ==
+
+class Competition:
+    def __init__(self, name, date, href):
+        self.name = name
+        self.date = date
+        self.href = href
+
+    def __repr__(self):
+        return f"{self.name}, {self.date}, {self.href}"
+
+# == Selenium Setup ==
+
 service = Service()
 option = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=option)
 
-all_events = defaultdict(list)
+all_events = HashTable(50)
 
+# == Main ==
 
 def main():
     url = "https://judotv.com"
     driver.get(url)
     time.sleep(2)
 
-    # Accept Cookies
     find = driver.find_element(By.ID, "CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")
     find.click()
-
     time.sleep(1)
 
-    # Click login button
     find = driver.find_element(By.CSS_SELECTOR, "span[style*='https://api.iconify.design/carbon/login.svg']")
     find = find.find_element(By.XPATH, "./ancestor::button")
     find.click()
-
     time.sleep(1)
 
-    # Enter login credentials
     find = driver.find_element(By.ID, "email")
     find.send_keys("dopep63842@bocapies.com")
-
     time.sleep(1)
 
     find = driver.find_element(By.ID, "password")
     find.send_keys("ProgProject2025")
-
     time.sleep(1)
 
-    # Click login button
     find = driver.find_element(By.CSS_SELECTOR, "button.button--gold")
     find.click()
-
     time.sleep(3)
 
-    # Go to competitions page
     find = driver.find_element(By.CSS_SELECTOR, 'a[href="/competitions"]')
     find.click()
-
     time.sleep(2)
 
     while True:
-        find = driver.find_element(By.CSS_SELECTOR, 'a[href="/competitions"]')
-        find.click()
-        time.sleep(2)
-
         print("\n-JudoTV choice menu:")
         print("1. Get list of all competitions")
         print("2. Get list of all competitions by category")
@@ -84,10 +155,13 @@ def main():
         elif choice == "5":
             break
 
-    
 
 def get_comp_data():
     month_names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+    competition_url = "https://judotv.com/competitions" 
+    
+    driver.get(competition_url)
 
     for month in month_names:
         try:
@@ -98,27 +172,28 @@ def get_comp_data():
             events = extract_and_categorize()
             time.sleep(2)
 
-            for event_category, event_list in events.items():
-                all_events[event_category].extend(event_list)
-        except Exception as e:
+            for category, event_list in events.items():
+                existing = all_events.search(category) if category in all_events else []
+                all_events.insert(category, existing + event_list)
+        except Exception:
             print("Error clicking on " + month)
 
     with open("events2025.csv", "w", newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["Category", "Event Name", "Date", "Link"])
-
         for category, events_list in all_events.items():
-            unique_events = sorted(set(events_list))  # Remove duplicates and sort
-            for event_name, date, href in unique_events:
-                writer.writerow([category, event_name, date, href])
+            seen = set()
+            for event in events_list:
+                if (event.name, event.date, event.href) not in seen:
+                    writer.writerow([category, event.name, event.date, event.href])
+                    seen.add((event.name, event.date, event.href))
 
 
 def extract_and_categorize():
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
     events = soup.find_all("a", href=True)
-
-    events_dict = defaultdict(list)
+    events_dict = {}
 
     for event in events:
         year_tag = event.find("div", attrs={"data-year": True})
@@ -130,8 +205,6 @@ def extract_and_categorize():
 
         date_tag = event.find("time")
         date = date_tag.get_text(strip=True) if date_tag else "Unknown Date"
-        date.replace(" ", "")
-
         href = event.get("href", "Unknown Link")
 
         name_lower = name.lower()
@@ -139,16 +212,20 @@ def extract_and_categorize():
             category = "Cadets"
         elif "junior" in name_lower:
             category = "Juniors"
-        elif "senior" in name_lower or "open" in name_lower or "grand slam" in name_lower or "masters" in name_lower or "grand prix" in name_lower:
+        elif any(word in name_lower for word in ["senior", "open", "grand slam", "masters", "grand prix"]):
             category = "Seniors"
         elif "veteran" in name_lower:
             category = "Veterans"
         else:
             category = "Other"
 
-        events_dict[category].append((name, date, href))
+        if category not in events_dict:
+            events_dict[category] = []
+
+        events_dict[category].append(Competition(name, date, href))
 
     return events_dict
+
 
 def get_comp_data_category():
     competition = input("Enter the competition name: ")
@@ -168,6 +245,8 @@ def get_comp_data_category():
     if not found:
         print("No matching event found.")
         return
+    
+    time.sleep(2)
 
     month = cdate[:3]
     button = driver.find_element(By.XPATH, f"//button[text()='{month}']")
@@ -203,7 +282,7 @@ def get_comp_data_category():
     time.sleep(2)
 
     weight+=' kg'
-    find = driver.find_element(By.XPATH, f"//li[@role='menuitem']//span[text()='{weight}']")
+    find = driver.find_element(By.XPATH, f"//li[@role='menuitem']//span[starts-with(text(), '{weight}')]")
     find.click() 
     time.sleep(2)
 
@@ -261,6 +340,8 @@ def get_ranked_players():
     if not found:
         print("No matching event found.")
         return
+    
+    time.sleep(2)
 
     month = cdate[:3]
     button = driver.find_element(By.XPATH, f"//button[text()='{month}']")
@@ -333,7 +414,8 @@ def get_country_list():
         print("No matching event found.")
         return
 
-    # Click on the month button
+    time.sleep(2)
+
     month = cdate[:3]
     button = driver.find_element(By.XPATH, f"//button[text()='{month}']")
     button.click()
@@ -374,3 +456,4 @@ def get_country_list():
     time.sleep(2)
         
 main()
+
