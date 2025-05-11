@@ -23,10 +23,10 @@ Projektā tiek izmantotas šādas bibliotēkas:
 
 ## Datu struktūras
 
-Projektā izmantoju vairākas datu struktūras.
-
 HashTable - domāts lai uzglabāt usacensības pēc to kategorijas (Cadets, Juniors...) Tas ļauj ātri meklēt un piekļūt sacensībām pēc kategorijas.
-Competition klase- objekts, kas satur informāciju par vienām sacensībām.  Sacensību nosaukums, datums un piekļuves saite.
+
+Competition klase- objekts, kas satur informāciju par vienām sacensībām. Sacensību nosaukums, datums un piekļuves saite.
+
 CSV failā tiek saglabāti dati par visām 2025. gada sacensībām ar šādām kolonnām:
 
 ## Programmas izmantošana
