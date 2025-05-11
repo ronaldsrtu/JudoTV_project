@@ -1,4 +1,12 @@
 Category,Event Name,Date,Link
+Veterans,Riga Veteran European Cup 2025,"Feb 22 - 23, 2025",/competitions/eju_vet_lat2025/overview
+Veterans,Tbilisi Veteran European Cup 2025,"Mar 8 - 9, 2025",/competitions/eju_vet_geo2025/overview
+Veterans,Warsaw Veteran European Cup 2025,"Apr 12, 2025",/competitions/eju_vet_pol2025/overview
+Veterans,European Judo Championships Veterans 2025 Individuals,"May 22 - 24, 2025",/competitions/eju_vet2025/overview
+Veterans,European Judo Championships Veterans 2025 Teams,"May 25, 2025",/competitions/eju_vet_teams2025/overview
+Veterans,Maintal European Veterans Tournament 2025,"Sep 27 - 28, 2025",/competitions/eju_vet_ger2025/overview
+Veterans,Jelsa Veteran European Cup 2025,"Oct 25 - 26, 2025",/competitions/eju_vet_cro2025/overview
+Veterans,Paris World Championships Veterans 2025,"Nov 3 - 7, 2025",/competitions/wc_vet2025/overview
 Juniors,Casablanca Junior African Cup 2025,"Jan 16, 2025",/competitions/cont_cup_jun_mar2025/overview
 Juniors,Sarajevo Junior European Cup 2025,"Feb 8 - 9, 2025",/competitions/cont_cup_jun_bih2025/overview
 Juniors,Tunis Junior African Cup 2025,"Feb 13, 2025",/competitions/cont_cup_jun_tun2025/overview
@@ -80,7 +88,7 @@ Seniors,World Senior Championships 2025 Hungary Individuals,"Jun 13 - 19,�
 Seniors,World Senior Championships 2025 Hungary Mixed Teams,"Jun 20, 2025",/competitions/wc_sen_teams2025/overview
 Seniors,Pretoria African Open 2025,"Jun 26 - 27, 2025",/competitions/cont_open_rsa2025/overview
 Seniors,Santo Domingo Panamerican Open 2025,"Jun 28 - 29, 2025",/competitions/cont_open_dom2025/overview
-Seniors,Tallin European Open 2025,"Jul 5 - 6, 2025",/competitions/cont_open_est2025/overview
+Seniors,Tallinn European Open 2025,"Jul 5 - 6, 2025",/competitions/cont_open_est2025/overview
 Seniors,Varadero Panamerican Open 2025,"Jul 5 - 6, 2025",/competitions/cont_open_cub2025/overview
 Seniors,Taipei Asian Open 2025,"Jul 12 - 13, 2025",/competitions/cont_open_tpe2025/overview
 Seniors,Lima Panamerican Open 2025,"Jul 13 - 14, 2025",/competitions/cont_open_per2025/overview
@@ -103,13 +111,6 @@ Seniors,Montreal Panamerican Open 2025,"Nov 15 - 16, 2025",/competitions
 Seniors,Yaounde African Open 2025,"Nov 22 - 23, 2025",/competitions/cont_open_cmr2025/overview
 Seniors,Abidjan African Open 2025,"Nov 29 - 30, 2025",/competitions/cont_open_civ2025/overview
 Seniors,Tokyo Grand Slam 2025,"Dec 6 - 7, 2025",/competitions/gs_jpn2025/overview
-Veterans,Riga Veteran European Cup 2025,"Feb 22 - 23, 2025",/competitions/eju_vet_lat2025/overview
-Veterans,Tbilisi Veteran European Cup 2025,"Mar 8 - 9, 2025",/competitions/eju_vet_geo2025/overview
-Veterans,Warsaw Veteran European Cup 2025,"Apr 12, 2025",/competitions/eju_vet_pol2025/overview
-Veterans,European Judo Championships Veterans 2025 Individuals,"May 22 - 25, 2025",/competitions/eju_vet2025/overview
-Veterans,Maintal European Veterans Tournament 2025,"Sep 27 - 28, 2025",/competitions/eju_vet_ger2025/overview
-Veterans,Jelsa Veteran European Cup 2025,"Oct 25 - 26, 2025",/competitions/eju_vet_cro2025/overview
-Veterans,Paris World Championships Veterans 2025,"Nov 3 - 7, 2025",/competitions/wc_vet2025/overview
 Cadets,Casablanca Cadet African Cup 2025,"Jan 17, 2025",/competitions/cont_cup_cad_mar2025/overview
 Cadets,Genova Cadet European Cup 2025,"Feb 8 - 9, 2025",/competitions/cont_cup_cad_ita2025/overview
 Cadets,Tunis Cadet African Cup 2025,"Feb 14, 2025",/competitions/cont_cup_cad_tun2025/overview

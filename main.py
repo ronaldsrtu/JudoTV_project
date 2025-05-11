@@ -8,8 +8,7 @@ from bs4 import BeautifulSoup
 import csv
 import time
 
-# == Custom Data Structures ==
-
+#  Hash Table code
 class Node:
     def __init__(self, key, value):
         self.key = key
@@ -84,8 +83,7 @@ class HashTable:
                 yield (current.key, current.value)
                 current = current.next
 
-# == Competition Data Class ==
-
+# Competition class (data storage)
 class Competition:
     def __init__(self, name, date, href):
         self.name = name
@@ -95,7 +93,7 @@ class Competition:
     def __repr__(self):
         return f"{self.name}, {self.date}, {self.href}"
 
-# == Selenium Setup ==
+
 
 service = Service()
 option = webdriver.ChromeOptions()
@@ -103,7 +101,7 @@ driver = webdriver.Chrome(service=service, options=option)
 
 all_events = HashTable(50)
 
-# == Main ==
+# Main loop
 
 def main():
     url = "https://judotv.com"
@@ -155,6 +153,8 @@ def main():
         elif choice == "5":
             break
 
+
+# Functions
 
 def get_comp_data():
     month_names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -228,8 +228,12 @@ def extract_and_categorize():
 
 
 def get_comp_data_category():
+    url = "https://judotv.com/competitions" 
+    driver.get(url)
+
     competition = input("Enter the competition name: ")
     weight = input("Enter the weight category -/+ and  number for example -> -81: ")
+
     found = False
     cdate = ""
     chref = ""
@@ -281,12 +285,16 @@ def get_comp_data_category():
 
     time.sleep(2)
 
-    weight+=' kg'
-    find = driver.find_element(By.XPATH, f"//li[@role='menuitem']//span[starts-with(text(), '{weight}')]")
-    find.click() 
-    time.sleep(2)
+    weight += " kg"
 
-    find = driver.find_element(By.XPATH, "//button[.//span[text()='Select']]")
+    try:
+        find = driver.find_element(By.XPATH, f"//li[@role='menuitem']//span[starts-with(text(), '{weight}')]")
+        find.click()
+        time.sleep(2)
+    except NoSuchElementException:
+        print(f"Weight category '{weight}' not found. Please check the input or try a different one.")
+
+    find = driver.find_element(By.XPATH, "//button[.///span[text()='Select']]")
     find.click()
 
     time.sleep(2)
@@ -297,7 +305,6 @@ def get_comp_data_category():
             load_more_button.click()
             time.sleep(1.5) # slight wait to allow more players to load
         except NoSuchElementException:
-            print("No more 'Load more' button found.")
             break
 
     time.sleep(2)
@@ -318,12 +325,15 @@ def get_comp_data_category():
             # Get country code (e.g., "KOR")
             country_code = c.find_element(By.XPATH, ".//div[contains(@class, 'text-center') and contains(@class, 'text-xs')]").text.strip()
 
-            print(f"Name Surname, Country: {name} {surname}, {country_code}")
+            print(f"#Ranking Name Surname, Country: {name} {surname}, {country_code}")
         except Exception as e:
             print(f"Error extracting data: {e}")
 
 
 def get_ranked_players():
+    url = "https://judotv.com/competitions" 
+
+    driver.get(url)
     competition = input("Enter the competition name: ")
     found = False
     cdate = ""
@@ -395,6 +405,9 @@ def get_ranked_players():
 
 
 def get_country_list():
+    url = "https://judotv.com/competitions" 
+    driver.get(url)
+
     competition = input("Enter the competition name: ")
     found = False
     cdate = ""
