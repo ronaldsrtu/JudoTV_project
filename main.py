@@ -159,9 +159,9 @@ def main():
 def get_comp_data():
     month_names = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
-    competition_url = "https://judotv.com/competitions" 
+    url = "https://judotv.com/competitions" 
     
-    driver.get(competition_url)
+    driver.get(url)
 
     for month in month_names:
         try:
