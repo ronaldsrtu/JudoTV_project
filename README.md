@@ -2,8 +2,11 @@
 
 ## Projekta uzdevums
 
-Šī projekta mērķis ir izveidot Python rīku, kas automatizē datu iegūšanu no **JudoTV** mājaslapas par dažādām  džudo sacensībām. Lietotājs var norādīt konkrētu sacensību nosaukumu, un ko vēlās iegūt no piedāvātā opciju saraksta. Vai arī iegūt pilnīgi visu sarakastu ar sacensībām..
+Šī projekta mērķis ir izveidot Python rīku, kas automatizē datu iegūšanu no **JudoTV** mājaslapas par dažādām  džudo sacensībām. Lietotājs var norādīt konkrētu sacensību nosaukumu, un ko vēlās iegūt no piedāvātā opciju saraksta. Vai arī iegūt pilnīgi visu sarakastu ar sacensībām, ar ko var tālāk strādāt.
 
+## Projekta mērķis
+
+Automatizēt un atvieglot piekļuvi sacensībām, lai treneriem un federācijām būtu vieglāk apstrādāt sportistu un sacensīu datus ar programmatūru.
 
 Projekta algoritms
 - Mājaslapas atvēršana un ielogošanās iekšā ar izveidotu kontu, lai piekļūtu sacensībām.
