@@ -41,8 +41,8 @@ CSV failā tiek saglabāti dati par visām 2025. gada sacensībām ar šādām k
 
 ## Programmas izmantošana
 
-1. Pārliecinieties, ka Jums ir uzstādīts `chromedriver` un `Google Chrome`.
-2. Instalējiet nepieciešamās bibliotēkas:
+1. Pārliecinieties, ka Jums ir uzstādīts `Google Chrome` pārlūkprogramma.
+2. Instalējiet nepieciešamās izstrādes bibliotēkas:
    ```bash
     pip install selenium 
     pip install beautifulsoup4
