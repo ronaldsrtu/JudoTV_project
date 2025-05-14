@@ -294,7 +294,7 @@ def get_comp_data_category():
     except NoSuchElementException:
         print(f"Weight category '{weight}' not found. Please check the input or try a different one.")
 
-    find = driver.find_element(By.XPATH, "//button[.///span[text()='Select']]")
+    find = driver.find_element(By.XPATH, "//button[.//span[text()='Select']]")
     find.click()
 
     time.sleep(2)
@@ -398,7 +398,12 @@ def get_ranked_players():
             rank_elem = c.find_element(By.XPATH, ".//div[contains(@class, 'text-primary-75') and contains(text(), '#')]")
             world_rank = rank_elem.text.strip().replace("#", "")
 
-            print(f"Name Surname, Country: #{world_rank} {name} {surname}, {country_code}")
+            # Get weight category
+            weight_elem = c.find_element(By.XPATH, ".//div[contains(@class, 'text-neutral-100')]/span[contains(text(), 'kg')]")
+            weight_category = weight_elem.text.strip()
+
+
+            print(f"Name Surname, Country: #{world_rank} {weight_category} {name} {surname}, {country_code}")
 
         except Exception as e:
             print(f"Error extracting data: {e}")
